@@ -238,7 +238,7 @@ Every PR and push to main triggers automatic checks:
 - ✅ **Formatting**: Ensures consistent code style
 - ✅ **Type Checking**: MyPy validates type annotations
 - ✅ **Tests**: Full test suite with coverage reporting
-- ✅ **Coverage**: Automatic upload to Codecov
+- ✅ **Coverage**: Test coverage reporting in CI logs
 
 The CI will politely reject your PR if any checks fail, because standards matter.
 

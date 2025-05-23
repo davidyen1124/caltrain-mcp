@@ -1,0 +1,5 @@
+rider_category_id,rider_category_description
+2,Senior
+5,Youth
+6,Disabled
+15,Medicare Cardholder

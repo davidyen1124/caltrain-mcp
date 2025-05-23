@@ -1,0 +1,7 @@
+zone_id,zone_name
+2272,Zone 4-Lawrence to Tamien
+2273,Zone 5-Capitol & Blossom Hill
+2274,Zone 6-Morgan Hill to Gilroy
+2275,Zone 1-SF to San Bruno
+2276,Zone 2-Millbrae to Redwood City
+2277,Zone 3-Menlo Park to Sunnyvale

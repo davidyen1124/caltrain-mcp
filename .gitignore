@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+.env/
+__pypackages__/
+
+# Coverage reports
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.coverage.*
+
+# Testing
+.pytest_cache/
+.cache
+
+# Python version files
+.python-version
+
+# IDE files
+.DS_Store
+.idea/
+.vscode/
+
+# Ignore everything under data/ …
+data/*
+
+# …but *unignore* the live Caltrain feed we want version-controlled
+!data/caltrain-ca-us/
+!data/caltrain-ca-us/**
+
+# Optional: ignore zipped snapshots or temp files
+data/**/*.zip
+*.tmp
+
+# Logs
+*.log
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json

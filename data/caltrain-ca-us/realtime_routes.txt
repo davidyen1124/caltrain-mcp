@@ -1,0 +1,6 @@
+route_id,realtime_enabled,realtime_routename,realtime_routecode
+77119,1,Local,LOC
+77120,1,Local,LOC
+77121,1,Limited,LIM
+77122,1,Express,EXP
+77123,1,South County,SCC

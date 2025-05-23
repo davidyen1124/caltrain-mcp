@@ -1,0 +1,11 @@
+route_id,direction_id,direction
+77123,1,South
+77123,0,North
+77122,1,South
+77122,0,North
+77121,1,South
+77121,0,North
+77120,1,South
+77120,0,North
+77119,1,South
+77119,0,North

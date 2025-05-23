@@ -1,0 +1,6 @@
+agency_id,route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color,route_sort_order,min_headway_minutes,eligibility_restricted,continuous_pickup,continuous_drop_off,tts_route_short_name,tts_route_long_name
+1000,77119,Local Weekday,,,2,,dcddde,000000,0,,0,1,1,,
+1000,77120,Local Weekend,,,2,,dcddde,000000,0,,0,1,1,,
+1000,77121,Limited,,,2,,99d7dc,000000,0,,0,1,1,,
+1000,77122,Express,,,2,,ce202f,ffffff,0,,0,1,1,,
+1000,77123,South County,South Santa Clara County Connector,,2,,fae4a7,000000,0,,0,1,1,,

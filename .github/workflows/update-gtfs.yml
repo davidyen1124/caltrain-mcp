@@ -1,0 +1,40 @@
+name: Refresh GTFS
+
+on:
+  schedule:
+    - cron: '0 10 * * 1' # Monday 10 UTC
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Download latest GTFS
+        run: uv run python scripts/fetch_gtfs.py
+
+      - name: Commit & PR if changed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name  "caltrain-bot"
+          git config user.email "caltrain-bot@users.noreply.github.com"
+
+          if [[ -n $(git status --porcelain data/caltrain-ca-us) ]]; then
+            git switch -c gtfs-update-$(date +%F)
+            git add data/caltrain-ca-us
+            git commit -m "chore: refresh GTFS feed"
+            gh pr create --fill --label bot
+          else
+            echo "No changes 📭"
+          fi

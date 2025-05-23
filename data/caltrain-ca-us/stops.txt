@@ -1,0 +1,107 @@
+stop_id,stop_code,platform_code,stop_name,stop_desc,stop_lat,stop_lon,zone_id,stop_url,location_type,parent_station,stop_timezone,position,direction,wheelchair_boarding,tts_stop_name
+22nd_street,22nd_street,,22nd Street Station,,37.756972,-122.392492,,,1,,America/Los_Angeles,,,0,twenty second street
+2537740,2537740,,Stanford Caltrain Northbound,,37.4384910093506,-122.156405244089,2277,,0,stanford,,,,0,
+2537744,2537744,,Stanford Caltrain Southbound,,37.438424746398,-122.156481646777,2277,,0,stanford,,,,0,
+70011,70011,,San Francisco Caltrain Northbound,,37.77639,-122.394992,2275,,0,san_francisco,,,,1,
+70012,70012,,San Francisco Caltrain Southbound,,37.776348,-122.394935,2275,,0,san_francisco,,,,1,
+70021,70021,,22nd Street Caltrain Northbound,,37.757599,-122.39188,2275,,0,22nd_street,,,,2,
+70022,70022,,22nd Street Caltrain Southbound,,37.757583,-122.392404,2275,,0,22nd_street,,,,2,
+70031,70031,,Bayshore Caltrain Northbound,,37.709537,-122.401586,2275,,0,bayshore,,,,1,
+70032,70032,,Bayshore Caltrain Southbound,,37.709544,-122.40198,2275,,0,bayshore,,,,1,
+70041,70041,,South San Francisco Caltrain Northbound,,37.6559413947962,-122.404979051211,2275,,0,south_sf,,,,2,
+70042,70042,,South San Francisco Caltrain Southbound,,37.6559419333549,-122.404979709655,2275,,0,south_sf,,,,2,
+70051,70051,,San Bruno Caltrain Northbound,,37.6304996012158,-122.411592604101,2275,,0,san_bruno,,,,1,
+70052,70052,,San Bruno Caltrain Southbound,,37.6304605129251,-122.411709050687,2275,,0,san_bruno,,,,1,
+70061,70061,,Millbrae Caltrain Northbound,,37.59988,-122.386647,2276,,0,place_MLBR,,,,1,
+70062,70062,,Millbrae Caltrain Southbound,,37.599797,-122.386832,2276,,0,place_MLBR,,,,1,
+70071,70071,,Broadway Caltrain Northbound,,37.58764,-122.36265,2276,,0,broadway,,,,2,
+70072,70072,,Broadway Caltrain Southbound,,37.587552,-122.362708,2276,,0,broadway,,,,2,
+70081,70081,,Burlingame Caltrain Northbound,,37.580197,-122.3449,2276,,0,burlingame,,,,1,
+70082,70082,,Burlingame Caltrain Southbound,,37.580186,-122.345075,2276,,0,burlingame,,,,1,
+70091,70091,,San Mateo Caltrain Northbound,,37.568087,-122.323851,2276,,0,san_mateo,,,,1,
+70092,70092,,San Mateo Caltrain Southbound,,37.568294,-122.324092,2276,,0,san_mateo,,,,1,
+70101,70101,,Hayward Park Caltrain Northbound,,37.552938,-122.309338,2276,,0,hayward_park,,,,1,
+70102,70102,,Hayward Park Caltrain Southbound,,37.552994,-122.309608,2276,,0,hayward_park,,,,1,
+70111,70111,,Hillsdale Caltrain Northbound,,37.5426076589713,-122.301496636584,2276,,0,hillsdale,,,,0,
+70112,70112,,Hillsdale Caltrain Southbound,,37.542536,-122.301666,2276,,0,hillsdale,,,,0,
+70121,70121,,Belmont Caltrain Northbound,,37.52089,-122.275738,2276,,0,belmont,,,,1,
+70122,70122,,Belmont Caltrain Southbound,,37.520844,-122.275816,2276,,0,belmont,,,,1,
+70131,70131,,San Carlos Caltrain Northbound,,37.50805,-122.26015,2276,,0,san_carlos,,,,1,
+70132,70132,,San Carlos Caltrain Southbound,,37.507933,-122.260266,2276,,0,san_carlos,,,,1,
+70141,70141,,Redwood City Caltrain Northbound,,37.486159,-122.231936,2276,,0,redwood_city,,,,1,
+70142,70142,,Redwood City Caltrain Southbound,,37.486101,-122.232,2276,,0,redwood_city,,,,1,
+70161,70161,,Menlo Park Caltrain Northbound,,37.454856,-122.182297,2277,,0,menlo_park,,,,1,
+70162,70162,,Menlo Park Caltrain Southbound,,37.454745,-122.182405,2277,,0,menlo_park,,,,1,
+70171,70171,,Palo Alto Caltrain Northbound,,37.443475,-122.164614,2277,,0,palo_alto,,,,1,
+70172,70172,,Palo Alto Caltrain Southbound,,37.443405,-122.164697,2277,,0,palo_alto,,,,1,
+70191,70191,,California Avenue Caltrain Northbound,,37.429365,-122.141927,2277,,0,california_ave,,,,1,
+70192,70192,,California Avenue Caltrain Southbound,,37.429333,-122.141978,2277,,0,california_ave,,,,1,
+70201,70201,,San Antonio Caltrain Northbound,,37.4073321573797,-122.107002027212,2277,,0,san_antonio,,,,1,
+70202,70202,,San Antonio Caltrain Southbound,,37.407239724099,-122.10711621707,2277,,0,san_antonio,,,,1,
+70211,70211,,Mountain View Caltrain Northbound,,37.394459,-122.075956,2277,,0,mountain_view,,,,1,
+70212,70212,,Mountain View Caltrain Southbound,,37.394402,-122.075994,2277,,0,mountain_view,,,,1,
+70221,70221,,Sunnyvale Caltrain Northbound,,37.378916,-122.031372,2277,,0,sunnyvale,,,,1,
+70222,70222,,Sunnyvale Caltrain Southbound,,37.378789,-122.031423,2277,,0,sunnyvale,,,,1,
+70231,70231,,Lawrence Caltrain Northbound,,37.370598,-121.997114,2272,,0,lawrence,,,,1,
+70232,70232,,Lawrence Caltrain Southbound,,37.370484,-121.997135,2272,,0,lawrence,,,,1,
+70241,70241,,Santa Clara Caltrain Northbound,,37.353238,-121.93608,2272,,0,santa_clara,,,,1,
+70242,70242,,Santa Clara Caltrain Southbound,,37.353189,-121.936135,2272,,0,santa_clara,,,,1,
+70251,70251,,College Park Caltrain Northbound,,37.342384,-121.9146,2272,,0,college_park,,,,2,
+70252,70252,,College Park Caltrain Southbound,,37.342338,-121.914677,2272,,0,college_park,,,,2,
+70261,70261,,San Jose Diridon Caltrain Northbound,,37.329239,-121.903011,2272,,0,sj_diridon,,,,1,
+70262,70262,,San Jose Diridon Caltrain Southbound,,37.329231,-121.903173,2272,,0,sj_diridon,,,,1,
+70271,70271,,Tamien Caltrain Northbound,,37.31174,-121.883721,2272,,0,tamien,,,,1,
+70272,70272,,Tamien Caltrain Southbound,,37.31175,-121.883999,2272,,0,tamien,,,,1,
+70281,70281,,Capitol Caltrain Northbound,,37.284102,-121.841955,2273,,0,capitol,,,,1,
+70282,70282,,Capitol Caltrain Southbound,,37.284062,-121.842037,2273,,0,capitol,,,,1,
+70291,70291,,Blossom Hill Caltrain Northbound,,37.252422,-121.797643,2273,,0,blossom_hill,,,,1,
+70292,70292,,Blossom Hill Caltrain Southbound,,37.252379,-121.797683,2273,,0,blossom_hill,,,,1,
+70301,70301,,Morgan Hill Caltrain Northbound,,37.129363,-121.650244,2274,,0,morgan_hill,,,,1,
+70302,70302,,Morgan Hill Caltrain Southbound,,37.129321,-121.650304,2274,,0,morgan_hill,,,,1,
+70311,70311,,San Martin Caltrain Northbound,,37.085225,-121.610049,2274,,0,san_martin,,,,1,
+70312,70312,,San Martin Caltrain Southbound,,37.086653,-121.610936,2274,,0,san_martin,,,,1,
+70321,70321,,Gilroy Caltrain Northbound,,37.003538,-121.566088,2274,,0,gilroy,,,,1,
+70322,70322,,Gilroy Caltrain Southbound,,37.003485,-121.566225,2274,,0,gilroy,,,,1,
+777402,777402,,San Jose Shuttle,,37.330196,-121.901985,2272,,0,,America/Los_Angeles,,,1,
+777403,777403,,Tamien Caltrain Shuttle,,37.311638,-121.883403,2272,,0,,America/Los_Angeles,,,1,
+BAY-01-SB,BAY-01-SB,,Elevator: Bayshore Caltrain Southbound,,37.70764232,-122.4019772,,,2,bayshore,,,,1,
+BAY-02-NB,BAY-02-NB,,Elevator: Bayshore Caltrain Northbound,,37.70764197,-122.4016822,,,2,bayshore,,,,1,
+bayshore,bayshore,,Bayshore Station,,37.70766,-122.401665,,https://www.caltrain.com/station/bayshore,1,,America/Los_Angeles,,,0,bayshore
+BEL-01-CB,BEL-01-CB,,Elevator: Belmont Caltrain Center Board,,37.52129457,-122.2763594,,,2,belmont,,,,1,
+belmont,belmont,,Belmont Station,,37.52133,-122.2763,,,1,,America/Los_Angeles,,,0,belmont
+blossom_hill,blossom_hill,,Blossom Hill Caltrain Station,,37.252606,-121.797907,,,1,,America/Los_Angeles,,,0,blossom hill
+broadway,broadway,,Broadway Station,,37.58726,-122.362,,,1,,America/Los_Angeles,,,0,broadway
+burlingame,burlingame,,Burlingame Station,,37.57985,-122.34418,,,1,,America/Los_Angeles,,,0,burlingame
+california_ave,california_ave,,California Avenue Station,,37.428834,-122.14113,,,1,,America/Los_Angeles,,,0,california avenue
+capitol,capitol,,Capitol Caltrain Station,,37.284016,-121.841899,,,1,,America/Los_Angeles,,,0,capitol
+college_park,college_park,,College Park Station,,37.34289,-121.91565,,,1,,America/Los_Angeles,,,0,college park
+gilroy,gilroy,,Gilroy Station,,37.004466,-121.566727,,,1,,America/Los_Angeles,,,0,gilroy
+hayward_park,hayward_park,,Hayward Park Station,,37.553161,-122.309494,,,1,,America/Los_Angeles,,,0,hayward park
+hillsdale,hillsdale,,Hillsdale Station,,37.542392678,-122.301612061,,,1,,America/Los_Angeles,,,0,hillsdale
+lawrence,lawrence,,Lawrence Station,,37.3707,-121.9969,,,1,,America/Los_Angeles,,,0,lawrence
+menlo_park,menlo_park,,Menlo Park Station,,37.4548,-122.18245,,,1,,America/Los_Angeles,,,0,menlo park
+MIL-02-SB,MIL-02-SB,,Elevator: Millbrae Caltrain Southbound,,37.60001734,-122.3870719,,,2,place_MLBR,,,,1,
+MIL-03-NB,MIL-03-NB,,Elevator: Millbrae Caltrain Northbound,,37.60005351,-122.3867681,,,2,place_MLBR,,,,1,
+morgan_hill,morgan_hill,,Morgan Hill Station,,37.129644,-121.650558,,,1,,America/Los_Angeles,,,0,morgan hill
+mountain_view,mountain_view,,Mountain View Station,,37.395067,-122.07722,,,1,,America/Los_Angeles,,,0,mountain view
+palo_alto,palo_alto,,Palo Alto Station,,37.44322,-122.16429,,,1,,America/Los_Angeles,,,0,palo alto
+place_MLBR,place_MLBR,,Millbrae,,37.5999,-122.38675,,,1,,America/Los_Angeles,,,0,millbrae
+redwood_city,redwood_city,,Redwood City Station,,37.485865,-122.2315,,,1,,America/Los_Angeles,,,0,redwood city
+san_antonio,san_antonio,,San Antonio Station,,37.407239431,-122.107115562,,,1,,America/Los_Angeles,,,0,san antonio
+san_bruno,san_bruno,,San Bruno Caltrain Station,,37.630460335,-122.411709042,,,1,,America/Los_Angeles,,,0,san bruno
+san_carlos,san_carlos,,San Carlos Station,,37.508033,-122.2602,,,1,,America/Los_Angeles,,,0,san carlos
+san_francisco,san_francisco,,San Francisco Caltrain Station,,37.776404,-122.394911,,,1,,America/Los_Angeles,,,0,san francisco
+san_martin,san_martin,,San Martin Station,,37.085984,-121.61048,,,1,,America/Los_Angeles,,,0,san martin
+san_mateo,san_mateo,,San Mateo Station,,37.56824,-122.3239,,,1,,America/Los_Angeles,,,0,san mateo
+santa_clara,santa_clara,,Santa Clara Caltrain Station,,37.353384,-121.936465,,,1,,America/Los_Angeles,,,0,santa clara
+SBR-01-SB,SBR-01-SB,,Elevator: San Bruno Caltrain Southbound,,37.63101455,-122.4120764,,,2,san_bruno,,,,1,
+SBR-02-NB,SBR-02-NB,,Elevator: San Bruno Caltrain Northbound,,37.63093676,-122.4116373,,,2,san_bruno,,,,1,
+SJD-01-STB,SJD-01-STB,,Elevator: San Jose Diridon Caltrain Station Building,,37.32972911,-121.9026427,,,2,sj_diridon,,,,1,
+sj_diridon,sj_diridon,,San Jose Diridon Station,,37.329694,-121.903208,,,1,,America/Los_Angeles,,,0,san jose diridon
+SMT-01-NB,SMT-01-NB,,Elevator: San Mateo Caltrain Northbound,,37.56824861,-122.3238951,,,2,san_mateo,,,,1,
+SMT-02-SB,SMT-02-SB,,Elevator: San Mateo Caltrain Southbound,,37.56812106,-122.3240982,,,2,san_mateo,,,,1,
+south_sf,south_sf,,South San Francisco Caltrain Station,,37.655941416,-122.404979006,,,1,,America/Los_Angeles,,,0,south san francisco
+stanford,stanford,,Stanford Station,,37.43895,-122.15715,,,1,,America/Los_Angeles,,,0,stanford
+sunnyvale,sunnyvale,,Sunnyvale Station,,37.378934,-122.0315,,,1,,America/Los_Angeles,,,0,sunnyvale
+TAM-01-CB,TAM-01-CB,,Elevator: Tamien Caltrain Center Board,,37.31280745,-121.8848646,,,2,tamien,,,,1,
+tamien,tamien,,Tamien Caltrain Station,,37.31269,-121.8847,,,1,,America/Los_Angeles,,,0,tamien

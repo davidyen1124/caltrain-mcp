@@ -1,0 +1,6 @@
+service_id,date,holiday_name,exception_type
+c_71257_b_none_d_0,20250518,Bay to Breakers 2025,1
+c_71024_b_84138_d_96,20250704,Independence Day - Weekend Service,1
+c_71024_b_84138_d_96,20250526,Memorial Day,1
+c_71024_b_84138_d_31,20250704,Independence Day - Weekend Service,2
+c_71024_b_84138_d_31,20250526,Memorial Day,2

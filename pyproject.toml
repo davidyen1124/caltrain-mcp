@@ -1,0 +1,30 @@
+[project]
+name = "caltrain-mcp"
+version = "0.1.0"
+description = "Model Context Protocol server for Caltrain schedules"
+readme = "README.md"
+authors = [
+    { name = "David Yen", email = "davidyen1124@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "mcp>=1.9.1",
+    "pandas>=2.2.3",
+    "pytest-asyncio>=0.26.0",
+    "pytest-cov>=6.1.1",
+    "requests>=2.32.3",
+]
+
+[project.scripts]
+caltrain-mcp = "caltrain_mcp.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "flake8>=7.2.0",
+    "pytest-cov>=6.1.1",
+    "pytest>=8.3.5",
+]

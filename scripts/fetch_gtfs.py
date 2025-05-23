@@ -4,12 +4,13 @@ Download the latest Caltrain GTFS feed, unzip, and place it in
 data/caltrain-ca-us
 """
 
-import requests
-import zipfile
 import io
 import pathlib
 import shutil
 import tempfile
+import zipfile
+
+import requests
 
 GTFS_URL = "https://data.trilliumtransit.com/gtfs/caltrain-ca-us/caltrain-ca-us.zip"
 TARGET_DIR = pathlib.Path(__file__).parent.parent / "data" / "caltrain-ca-us"

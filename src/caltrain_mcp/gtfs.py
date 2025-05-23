@@ -1,11 +1,12 @@
 """GTFS data loading and helper functions for Caltrain MCP."""
 
 from __future__ import annotations
-import pandas as pd
-from datetime import date
-from typing import List, Tuple
-from pathlib import Path
 
+from datetime import date
+from pathlib import Path
+from typing import Any
+
+import pandas as pd
 
 # Global data frames - will be loaded once at startup
 ALL_STOPS_DF = None
@@ -23,7 +24,7 @@ def get_gtfs_folder() -> Path:
     return workspace_root / "data" / "caltrain-ca-us"
 
 
-def load_gtfs_data():
+def load_gtfs_data() -> None:
     """Load and prepare GTFS data at startup."""
     global ALL_STOPS_DF, STATIONS_DF, TRIPS_DF, STOP_TIMES_DF, CALENDAR_DF
 
@@ -53,8 +54,11 @@ def load_gtfs_data():
     )
 
 
-def get_active_service_ids(target_date: date) -> List[str]:
+def get_active_service_ids(target_date: date) -> list[str]:
     """Get service IDs that are active on the given date."""
+    if CALENDAR_DF is None:
+        raise RuntimeError("GTFS data not loaded. Call load_gtfs_data() first.")
+
     weekday_map = {
         0: "monday",
         1: "tuesday",
@@ -80,6 +84,9 @@ def get_active_service_ids(target_date: date) -> List[str]:
 
 def find_station(name: str) -> str:
     """Find a station ID by name (fuzzy matching)."""
+    if STATIONS_DF is None:
+        raise RuntimeError("GTFS data not loaded. Call load_gtfs_data() first.")
+
     name_norm = name.lower().strip()
 
     # Handle common abbreviations and variations
@@ -144,19 +151,24 @@ def find_station(name: str) -> str:
 
 def get_station_name(stop_id: str) -> str:
     """Get the display name for a station."""
+    if STATIONS_DF is None:
+        raise RuntimeError("GTFS data not loaded. Call load_gtfs_data() first.")
+
     station = STATIONS_DF[STATIONS_DF["stop_id"] == stop_id]
     if station.empty:
         return stop_id
-    return station.iloc[0]["stop_name"]
+    return str(station.iloc[0]["stop_name"])
 
 
-def get_platform_stops_for_station(station_id: str) -> List[str]:
+def get_platform_stops_for_station(station_id: str) -> list[str]:
     """Get all platform stop IDs that belong to a station."""
+    if ALL_STOPS_DF is None:
+        raise RuntimeError("GTFS data not loaded. Call load_gtfs_data() first.")
 
     # Find all stops that have this station as their parent
     # Handle both string and numeric parent_station values, excluding NaN
     # Convert float values to int first to avoid "100.0" vs "100" mismatch
-    def convert_parent_station(value):
+    def convert_parent_station(value: Any) -> str | None:
         if pd.isna(value):
             return None
         # If it's a float and has no decimal part, convert to int then string
@@ -170,7 +182,7 @@ def get_platform_stops_for_station(station_id: str) -> List[str]:
     return platform_stops["stop_id"].tolist()
 
 
-def time_to_seconds(time_str: str) -> int:
+def time_to_seconds(time_str: str | None) -> int | None:
     """Convert HH:MM:SS to seconds since midnight."""
     if pd.isna(time_str) or not time_str:
         return None
@@ -200,8 +212,10 @@ def find_next_trains(
     after_seconds: int,
     target_date: date,
     limit: int = 5,
-) -> List[Tuple[str, str, str, str]]:
+) -> list[tuple[str, str, str, str]]:
     """Find the next trains from origin to destination."""
+    if TRIPS_DF is None or STOP_TIMES_DF is None:
+        raise RuntimeError("GTFS data not loaded. Call load_gtfs_data() first.")
 
     # Get active service IDs for the target date
     service_ids = get_active_service_ids(target_date)
@@ -273,6 +287,9 @@ def find_next_trains(
     return results
 
 
-def list_all_stations() -> List[str]:
+def list_all_stations() -> list[str]:
     """Get a list of all available Caltrain stations."""
+    if STATIONS_DF is None:
+        raise RuntimeError("GTFS data not loaded. Call load_gtfs_data() first.")
+
     return STATIONS_DF["stop_name"].sort_values().tolist()

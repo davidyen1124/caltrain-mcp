@@ -166,24 +166,81 @@ _Actual arrival times may vary. Side effects may include existential dread and a
 
 ```
 caltrain-mcp/
+├── .github/workflows/         # GitHub Actions (the CI/CD overlords)
+│   ├── ci.yml                 # Main CI pipeline (linting, testing, the works)
+│   └── update-gtfs.yml        # Automated GTFS data updates
 ├── src/caltrain_mcp/          # Main package (because modern Python demands structure)
 │   ├── __init__.py            # Package initialization (the ceremony of Python)
 │   ├── __main__.py            # Entry point for python -m caltrain_mcp
 │   ├── server.py              # MCP server implementation (where the magic happens)
 │   └── gtfs.py                # GTFS data processing (aka "CSV wrestling")
 ├── scripts/                   # Utility scripts (the supporting cast)
-│   └── fetch_gtfs.py          # Downloads the latest disappointment data
+│   ├── __init__.py            # Makes scripts a proper Python package
+│   ├── fetch_gtfs.py          # Downloads the latest disappointment data
+│   └── lint.py                # Run all CI checks locally (before embarrassment)
 ├── tests/                     # Test suite (because trust but verify)
 │   ├── conftest.py            # Shared test fixtures (the common ground)
 │   ├── test_gtfs.py           # GTFS functionality tests (8 tests of data wrangling)
 │   ├── test_server.py         # Server functionality tests (4 tests of MCP protocol)
 │   └── test_fetch_gtfs.py     # Data fetching tests (7 tests of download chaos)
 ├── data/                      # GTFS data storage (where CSV files go to retire)
+├── .pre-commit-config.yaml    # Pre-commit hooks configuration
 ├── pyproject.toml             # Modern Python config (because setup.py is so 2020)
 └── README.md                  # This literary masterpiece
 ```
 
 ## Development & Testing (For When Things Inevitably Break)
+
+### Code Quality & CI/CD
+
+This project uses modern Python tooling to keep the code clean and maintainable:
+
+- **Ruff**: Lightning-fast linting and formatting (because life's too short for slow tools)
+- **MyPy**: Type checking (because guessing types is for amateurs)
+- **Pytest**: Testing framework with coverage reporting
+- **Pre-commit**: Automatic checks before committing (preventing embarrassment since forever)
+
+#### Running All Checks Locally
+
+Before pushing your masterpiece to GitHub:
+
+```bash
+# Run all checks at once (the full gauntlet)
+uv run python scripts/lint.py
+
+# Or use the installed script
+uv run caltrain-lint
+
+# Individual commands if you like to suffer step by step:
+uv run ruff check .              # Linting
+uv run ruff format --check .     # Formatting check
+uv run mypy src tests           # Type checking
+uv run pytest --cov=src/caltrain_mcp --cov-report=term-missing  # Tests with coverage
+```
+
+#### Setting Up Pre-commit Hooks
+
+To automatically run checks before every commit (because we all forget):
+
+```bash
+# Install pre-commit hooks
+uv run pre-commit install
+
+# Test the hooks
+uv run pre-commit run --all-files
+```
+
+#### GitHub Actions CI
+
+Every PR and push to main triggers automatic checks:
+
+- ✅ **Linting**: Ruff checks for code quality issues
+- ✅ **Formatting**: Ensures consistent code style
+- ✅ **Type Checking**: MyPy validates type annotations
+- ✅ **Tests**: Full test suite with coverage reporting
+- ✅ **Coverage**: Automatic upload to Codecov
+
+The CI will politely reject your PR if any checks fail, because standards matter.
 
 ### Running Tests
 

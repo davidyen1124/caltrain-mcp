@@ -1,5 +1,6 @@
-import pytest
 from datetime import date
+
+import pytest
 
 from caltrain_mcp import gtfs
 

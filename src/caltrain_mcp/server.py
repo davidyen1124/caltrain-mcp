@@ -1,12 +1,14 @@
 """FastMCP server for Caltrain MCP tools."""
 
 from __future__ import annotations
+
 import os
 import sys
 from datetime import datetime
-from mcp.server.fastmcp import FastMCP
-from . import gtfs
 
+from mcp.server.fastmcp import FastMCP
+
+from . import gtfs
 
 mcp = FastMCP("caltrain")
 
@@ -142,15 +144,16 @@ async def list_stations() -> str:
         return f"Error: {str(e)}"
 
 
-def main():
+def main() -> None:
     """Main entry point for the MCP server."""
     # Only load GTFS data when not in test mode
     if os.getenv("PYTEST_CURRENT_TEST") is None and "pytest" not in sys.modules:
         try:
             gtfs.load_gtfs_data()
-            print(
-                f"Loaded GTFS data successfully. Found {len(gtfs.STATIONS_DF)} stations."
+            stations_count = (
+                len(gtfs.STATIONS_DF) if gtfs.STATIONS_DF is not None else 0
             )
+            print(f"Loaded GTFS data successfully. Found {stations_count} stations.")
         except Exception as e:
             print(f"Error loading GTFS data: {e}")
             sys.exit(1)

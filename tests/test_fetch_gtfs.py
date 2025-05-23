@@ -1,8 +1,9 @@
-import io
 import importlib.util
+import io
 import zipfile
 from pathlib import Path
 from types import SimpleNamespace
+
 import pytest
 import requests
 

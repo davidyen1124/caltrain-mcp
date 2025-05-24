@@ -1,10 +1,17 @@
-name: CI
+name: CI & Semantic release
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
   test:
@@ -23,21 +30,43 @@ jobs:
       - uses: astral-sh/setup-uv@v6
 
       - name: Install dependencies
-        run: |
-          uv sync --all-extras --dev
+        run: uv sync --all-extras --dev
 
-      - name: Run ruff linter
+      - name: Ruff (lint + fmt check)
         run: |
           uv run ruff check .
-
-      - name: Run ruff formatter
-        run: |
           uv run ruff format --check .
 
-      - name: Run mypy type checker
-        run: |
-          uv run mypy src
+      - name: MyPy
+        run: uv run mypy src
 
-      - name: Run pytest
-        run: |
-          uv run pytest --cov=src/caltrain_mcp --cov-report=term-missing
+      - name: PyTest
+        run: uv run pytest --cov=src/caltrain_mcp --cov-report=term-missing
+
+  semantic_release:
+    needs: test
+    if: needs.test.result == 'success' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Install semantic-release
+        run: uv tool install python-semantic-release
+
+      - name: Run semantic-release
+        run: uv tool run python-semantic-release publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,7 +1,6 @@
 # 🚂 Caltrain MCP Server (Because You Love Waiting for Trains)
 
-[![PyPI](https://img.shields.io/pypi/v/caltrain-mcp)](https://pypi.org/project/caltrain-mcp/)
-[![CI & Semantic release](https://github.com/davidyen1124/caltrain-mcp/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/davidyen1124/caltrain-mcp/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/caltrain-mcp)](https://pypi.org/project/caltrain-mcp/) [![CI & Semantic release](https://github.com/davidyen1124/caltrain-mcp/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/davidyen1124/caltrain-mcp/actions/workflows/ci.yml) [![Add Caltrain MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.png)](cursor://anysphere.cursor-deeplink/mcp/install?name=caltrain&config=eyJjYWx0cmFpbiI6eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJjYWx0cmFpbi1tY3AiXX19)
 
 ![Caltrain MCP Demo](assets/caltrain-mcp-demo.png)
 
@@ -75,12 +74,6 @@ uvx caltrain-mcp
 ```
 
 The server communicates via stdin/stdout using the MCP protocol. It doesn't do anything exciting when run directly - it just sits there waiting for proper MCP messages.
-
-### Add to Cursor
-
-Skip the manual setup and install the server in Cursor with a single click:
-
-[![Add Caltrain MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.png)](cursor://anysphere.cursor-deeplink/mcp/install?name=caltrain&config=eyJjYWx0cmFpbiI6eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJjYWx0cmFpbi1tY3AiXX19)
 
 ### Testing the Server (For Development)
 

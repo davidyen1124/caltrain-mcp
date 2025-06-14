@@ -76,6 +76,12 @@ uvx caltrain-mcp
 
 The server communicates via stdin/stdout using the MCP protocol. It doesn't do anything exciting when run directly - it just sits there waiting for proper MCP messages.
 
+### Add to Cursor
+
+Skip the manual setup and install the server in Cursor with a single click:
+
+[![Add Caltrain MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.png)](cursor://anysphere.cursor-deeplink/mcp/install?name=caltrain&config=eyJjYWx0cmFpbiI6eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJjYWx0cmFpbi1tY3AiXX19)
+
 ### Testing the Server (For Development)
 
 You can test if this thing actually works by importing it directly:

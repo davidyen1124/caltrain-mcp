@@ -3,6 +3,10 @@
 [![PyPI](https://img.shields.io/pypi/v/caltrain-mcp)](https://pypi.org/project/caltrain-mcp/)
 [![CI & Semantic release](https://github.com/davidyen1124/caltrain-mcp/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/davidyen1124/caltrain-mcp/actions/workflows/ci.yml)
 
+<a href="https://glama.ai/mcp/servers/@davidyen1124/caltrain-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@davidyen1124/caltrain-mcp/badge" alt="Caltrain Server MCP server" />
+</a>
+
 ![Caltrain MCP Demo](assets/caltrain-mcp-demo.png)
 
 A Model Context Protocol (MCP) server that promises to tell you _exactly_ when the next Caltrain will arrive... and then be 10 minutes late anyway. Uses real GTFS data, so at least the disappointment is official!

@@ -1,3 +1,3 @@
 service_id,service_name,monday,tuesday,wednesday,thursday,friday,saturday,sunday,start_date,end_date
-c_71024_b_84138_d_96,Year Round starting 1/27/2025 (Weekend),0,0,0,0,0,1,1,20250127,20250731
-c_71024_b_84138_d_31,Year Round starting 1/27/2025 (Weekday),1,1,1,1,1,0,0,20250127,20250731
+c_71306_b_84949_d_96,Year Round starting 6/16/2025 (Weekend),0,0,0,0,0,1,1,20250616,20251231
+c_71306_b_84949_d_31,Year Round starting 6/16/2025 (Weekday),1,1,1,1,1,0,0,20250616,20251231

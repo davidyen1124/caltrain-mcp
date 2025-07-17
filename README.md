@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/davidyen1124-caltrain-mcp-badge.png)](https://mseep.ai/app/davidyen1124-caltrain-mcp)
+
 # 🚂 Caltrain MCP Server (Because You Love Waiting for Trains)
 
 [![PyPI](https://img.shields.io/pypi/v/caltrain-mcp)](https://pypi.org/project/caltrain-mcp/)

@@ -1,9 +1,11 @@
-service_id,date,holiday_name,exception_type
-c_71306_b_84949_d_96,20251225,Christmas - Weekend Service,1
-c_71306_b_84949_d_96,20251127,Thanksgiving Day - Weekend Service,1
-c_71306_b_84949_d_96,20250901,Labor Day - Weekend Service,1
-c_71306_b_84949_d_96,20250704,Independence Day - Weekend Service,1
-c_71306_b_84949_d_31,20251225,Christmas - Weekend Service,2
-c_71306_b_84949_d_31,20251127,Thanksgiving Day - Weekend Service,2
-c_71306_b_84949_d_31,20250901,Labor Day - Weekend Service,2
-c_71306_b_84949_d_31,20250704,Independence Day - Weekend Service,2
+service_id,date,exception_type
+Weekday,20250901,2
+Weekday,20251127,2
+Weekday,20251225,2
+Weekday,20260119,2
+Weekday,20260216,2
+Weekend,20250901,1
+Weekend,20251127,1
+Weekend,20251225,1
+Weekend,20260119,1
+Weekend,20260216,1

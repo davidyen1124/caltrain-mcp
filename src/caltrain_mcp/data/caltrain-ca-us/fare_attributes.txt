@@ -1,7 +1,7 @@
-agency_id,fare_id,price,currency_type,payment_method,transfers,transfer_duration
-1000,3525,4.00,USD,1,,14400
-1000,3526,6.25,USD,1,,14400
-1000,3527,8.50,USD,1,,14400
-1000,3528,10.75,USD,1,,14400
-1000,3529,13.00,USD,1,,14400
-1000,3530,15.25,USD,1,,14400
+fare_id,price,currency_type,payment_method,transfers,agency_id,transfer_duration
+3525,4,USD,1,,1000,14400
+3526,6.25,USD,1,,1000,14400
+3527,8.5,USD,1,,1000,14400
+3528,10.75,USD,1,,1000,14400
+3529,13,USD,1,,1000,14400
+3530,15.25,USD,1,,1000,14400

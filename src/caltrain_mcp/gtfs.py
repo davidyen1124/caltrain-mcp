@@ -166,28 +166,24 @@ def find_station(name: str, data: GTFSData) -> str:
     if name_norm in abbreviations:
         name_norm = abbreviations[name_norm]
 
-    # Try exact match first on normalized names
-    exact_match = stations_df[
-        stations_df["normalized_name"].str.contains(name_norm, na=False, regex=False)
-    ]
-    if not exact_match.empty:
-        return str(exact_match.iloc[0]["stop_id"])
+    # 1) Exact match on normalized name (most precise)
+    exact_eq = stations_df[stations_df["normalized_name"] == name_norm]
+    if not exact_eq.empty:
+        return str(exact_eq.iloc[0]["stop_id"])
 
-    # Try partial match on full station names
-    partial_match = stations_df[
-        stations_df["stop_name"]
-        .str.lower()
-        .str.contains(name_norm, na=False, regex=False)
-    ]
-    if not partial_match.empty:
-        return str(partial_match.iloc[0]["stop_id"])
-
-    # Try starts with matching for partial names
+    # 2) Prefix match on normalized name (e.g., "san" -> "san francisco")
     starts_with = stations_df[
-        stations_df["stop_name"].str.lower().str.startswith(name_norm, na=False)
+        stations_df["normalized_name"].str.startswith(name_norm, na=False)
     ]
     if not starts_with.empty:
         return str(starts_with.iloc[0]["stop_id"])
+
+    # 3) Fallback: substring match on full station name (least precise)
+    partial_match = stations_df[
+        stations_df["stop_name"].str.lower().str.contains(name_norm, na=False)
+    ]
+    if not partial_match.empty:
+        return str(partial_match.iloc[0]["stop_id"])
 
     raise ValueError(f"Station not found: {name}")
 

@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "caltrain": {
-      "command": "uv",
-      "args": ["run", "caltrain-mcp"]
-    }
-  }
-}

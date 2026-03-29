@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.8.7 (2026-03-29)
+
+### Bug Fixes
+
+- Unblock GTFS refresh workflow ([#26](https://github.com/davidyen1124/caltrain-mcp/pull/26),
+  [`1993662`](https://github.com/davidyen1124/caltrain-mcp/commit/199366246aa54f38e806ba768c9eb1a69736edb2))
+
+
 ## v0.8.6 (2025-09-12)
 
 ### Bug Fixes

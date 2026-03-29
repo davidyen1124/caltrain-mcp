@@ -1,11 +1,5 @@
-service_id,date,exception_type
-Weekday,20250901,2
-Weekday,20251127,2
-Weekday,20251225,2
-Weekday,20260119,2
-Weekday,20260216,2
-Weekend,20250901,1
-Weekend,20251127,1
-Weekend,20251225,1
-Weekend,20260119,1
-Weekend,20260216,1
+service_id,date,holiday_name,exception_type
+c_71743_b_none_d_0,20260216,President's Day,1
+c_71742_b_86200_d_96,20260525,Memorial Day,1
+c_71742_b_86200_d_31,20260525,Memorial Day,2
+c_71742_b_86200_d_31,20260216,President's Day,2

@@ -5,6 +5,9 @@ on:
     - cron: '0 10 * * 1' # Monday 10 UTC
   workflow_dispatch:
 
+env:
+  PYTHON_VERSION: "3.13"
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -18,12 +21,11 @@ jobs:
           fetch-depth: 0
 
       - uses: actions/setup-python@v5
-        with: { python-version: '3.12' }
-
-      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Download latest GTFS
-        run: uv run python scripts/fetch_gtfs.py
+        run: python scripts/fetch_gtfs.py
 
       - name: Commit & PR if changed
         env:

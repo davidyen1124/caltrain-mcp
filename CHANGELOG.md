@@ -1,6 +1,20 @@
 # CHANGELOG
 
 
+## v0.8.8 (2026-06-01)
+
+### Chores
+
+- Pin setup-uv action release
+  ([`823d14d`](https://github.com/davidyen1124/caltrain-mcp/commit/823d14d13966b854b763f604b2fc3fd88dc64fe9))
+
+- Update GitHub Actions versions
+  ([`3eade5d`](https://github.com/davidyen1124/caltrain-mcp/commit/3eade5d6c5beb70b89423ff21c968b2d059a5388))
+
+- Update setup-uv action
+  ([`3d8b81e`](https://github.com/davidyen1124/caltrain-mcp/commit/3d8b81eb5ff09875279fb0aa26fd06e029f8ac0d))
+
+
 ## v0.8.7 (2026-03-29)
 
 ### Bug Fixes

@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v0.8.10 (2026-07-16)
+
+### Chores
+
+- Refresh GTFS feed ([#31](https://github.com/davidyen1124/caltrain-mcp/pull/31),
+  [`6cdd8aa`](https://github.com/davidyen1124/caltrain-mcp/commit/6cdd8aa09efc98f9cfae519e3b0118a7941dde7c))
+
+Refresh the bundled Caltrain GTFS feed through January 31, 2027, including updated holiday
+  exceptions and World Cup service.
+
+
 ## v0.8.9 (2026-07-16)
 
 ### Bug Fixes

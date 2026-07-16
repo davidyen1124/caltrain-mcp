@@ -38,6 +38,7 @@ def _make_data():
         "start_date",
         "end_date",
     ])
+    calendar_dates = pd.DataFrame(columns=["service_id", "date", "exception_type"])
 
     return gtfs.GTFSData(
         all_stops=all_stops,
@@ -45,6 +46,7 @@ def _make_data():
         trips=trips,
         stop_times=stop_times,
         calendar=calendar,
+        calendar_dates=calendar_dates,
         station_to_platform_stops={},
     )
 
@@ -69,4 +71,3 @@ def test_prefix_south_san_resolves_south_sf():
 def test_abbreviation_ssf_points_to_south_sf():
     data = _make_data()
     assert gtfs.find_station("ssf", data) == "110"
-

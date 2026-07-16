@@ -60,19 +60,27 @@ def test_get_platform_stops_for_station(fake_gtfs):
 
 def test_get_active_service_ids(fake_gtfs):
     """Test service ID lookup for different dates"""
-    # Wednesday (should have WEEKDAY service)
+    # Normal Wednesday follows the weekly calendar.
     service_ids = gtfs.get_active_service_ids(date(2025, 1, 1), fake_gtfs)
     assert service_ids == ["WEEKDAY"]
 
-    # Saturday (should have no service based on our test data)
+    # A date-specific addition can activate a service absent from calendar.txt.
     service_ids = gtfs.get_active_service_ids(date(2025, 1, 4), fake_gtfs)
+    assert service_ids == ["SATURDAY"]
+
+    # Date-specific exceptions can replace regular weekday service.
+    service_ids = gtfs.get_active_service_ids(date(2025, 1, 2), fake_gtfs)
+    assert service_ids == ["SPECIAL"]
+
+    # A date without regular service or an exception remains inactive.
+    service_ids = gtfs.get_active_service_ids(date(2025, 1, 5), fake_gtfs)
     assert service_ids == []
 
 
 def test_find_next_trains_edge_cases(fake_gtfs):
     """Test edge cases in find_next_trains function"""
     # No active service IDs (weekend)
-    trains = gtfs.find_next_trains("100", "200", 0, date(2025, 1, 4), fake_gtfs)
+    trains = gtfs.find_next_trains("100", "200", 0, date(2025, 1, 5), fake_gtfs)
     assert trains == []
 
     # Valid date but after all departures

@@ -1,6 +1,16 @@
 # CHANGELOG
 
 
+## v0.8.9 (2026-07-16)
+
+### Bug Fixes
+
+- Apply GTFS calendar date exceptions ([#32](https://github.com/davidyen1124/caltrain-mcp/pull/32),
+  [`be5edaa`](https://github.com/davidyen1124/caltrain-mcp/commit/be5edaa92700a608ac802673f219ce33331fc08e))
+
+Load and apply GTFS calendar_dates additions and removals when resolving active services.
+
+
 ## v0.8.8 (2026-06-01)
 
 ### Chores

@@ -20,6 +20,7 @@ class GTFSData:
     trips: pd.DataFrame
     stop_times: pd.DataFrame
     calendar: pd.DataFrame
+    calendar_dates: pd.DataFrame
     station_to_platform_stops: dict[str, list[str]]
 
 
@@ -49,6 +50,13 @@ def load_gtfs_data() -> GTFSData:
     trips_df = pd.read_csv(gtfs_folder / "trips.txt")
     stop_times_df = pd.read_csv(gtfs_folder / "stop_times.txt")
     calendar_df = pd.read_csv(gtfs_folder / "calendar.txt")
+    calendar_dates_path = gtfs_folder / "calendar_dates.txt"
+    if calendar_dates_path.exists():
+        calendar_dates_df = pd.read_csv(calendar_dates_path)
+    else:
+        calendar_dates_df = pd.DataFrame(
+            columns=["service_id", "date", "exception_type"]
+        )
 
     # Ensure consistent data types for stop_id columns
     all_stops_df["stop_id"] = all_stops_df["stop_id"].astype(str)
@@ -89,6 +97,7 @@ def load_gtfs_data() -> GTFSData:
         trips=trips_df,
         stop_times=stop_times_df,
         calendar=calendar_df,
+        calendar_dates=calendar_dates_df,
         station_to_platform_stops=station_to_platform,
     )
 
@@ -123,7 +132,21 @@ def get_active_service_ids(target_date: date, data: GTFSData) -> list[str]:
         & (calendar_df["end_date"] >= int(date_str))
     ]
 
-    return active_services["service_id"].tolist()
+    active_service_ids = dict.fromkeys(active_services["service_id"].astype(str))
+
+    # Apply date-specific GTFS exceptions after the regular weekly schedule.
+    # exception_type 1 adds service and exception_type 2 removes service.
+    exceptions = data.calendar_dates[
+        data.calendar_dates["date"].astype(str) == date_str
+    ]
+    for exception in exceptions.itertuples(index=False):
+        service_id = str(exception.service_id)
+        if exception.exception_type == 1:
+            active_service_ids[service_id] = None
+        elif exception.exception_type == 2:
+            active_service_ids.pop(service_id, None)
+
+    return list(active_service_ids)
 
 
 def find_station(name: str, data: GTFSData) -> str:

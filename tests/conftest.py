@@ -30,6 +30,14 @@ WEEKDAY,1,1,1,1,1,0,0,20250101,20251231
 """
     calendar_df = pd.read_csv(StringIO(cal_csv))
 
+    # --- calendar_dates ---------------------------------------
+    cal_dates_csv = """service_id,date,exception_type
+WEEKDAY,20250102,2
+SPECIAL,20250102,1
+SATURDAY,20250104,1
+"""
+    calendar_dates_df = pd.read_csv(StringIO(cal_dates_csv))
+
     # --- trips -------------------------------------------------
     trips_csv = "route_id,service_id,trip_id,trip_headsign,trip_short_name\n1,WEEKDAY,T1,San Jose,SJ\n"
     trips_df = pd.read_csv(StringIO(trips_csv))
@@ -64,6 +72,7 @@ T1,08:50:00,08:50:00,201,2
         trips=trips_df,
         stop_times=stop_times_df,
         calendar=calendar_df,
+        calendar_dates=calendar_dates_df,
         station_to_platform_stops=station_to_platform,
     )
 

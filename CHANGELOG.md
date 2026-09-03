@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.8.11 (2026-09-03)
+
+### Chores
+
+- Refresh GTFS feed
+  ([`87dccf9`](https://github.com/davidyen1124/caltrain-mcp/commit/87dccf950f79a9c1533eac6522801de075a78ec7))
+
+
 ## v0.8.10 (2026-07-16)
 
 ### Chores

@@ -3,7 +3,7 @@
 import { AppBridge, PostMessageTransport } from "@modelcontextprotocol/ext-apps/app-bridge";
 import type { McpUiHostContext } from "@modelcontextprotocol/ext-apps";
 import type { CallToolResult } from "@modelcontextprotocol/server";
-import { ArrowLeftRight } from "lucide-react";
+import { ArrowLeftRight, ArrowUpDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
@@ -69,7 +69,7 @@ export function LiveDemo({ stations }: { stations: StationRef[] }) {
   const [html, setHtml] = useState<string | null>(null);
   const [failed, setFailed] = useState(false);
   const [mode, setMode] = useState<"inline" | "fullscreen">("inline");
-  const [height, setHeight] = useState(420);
+  const [height, setHeight] = useState(370);
   const frameRef = useRef<HTMLIFrameElement>(null);
   const bridgeRef = useRef<AppBridge | null>(null);
   const modeRef = useRef(mode);
@@ -144,64 +144,57 @@ export function LiveDemo({ stations }: { stations: StationRef[] }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [mode]);
 
+  const select = (id: string, label: string, value: string, onChange: (v: string) => void) => (
+    <div className="grid min-w-0 flex-1 gap-1.5">
+      <label htmlFor={id} className="font-sans text-sm font-semibold sm:text-base">
+        {label}
+      </label>
+      <NativeSelect
+        id={id}
+        className="w-full [&_select]:h-11 [&_select]:rounded-md [&_select]:bg-card [&_select]:pl-3.5 [&_select]:font-sans [&_select]:text-base"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      >
+        {stations.map((s) => (
+          <NativeSelectOption key={s.id} value={s.id}>
+            {s.name}
+          </NativeSelectOption>
+        ))}
+      </NativeSelect>
+    </div>
+  );
+
   return (
-    <div>
-      <div className="mb-3 flex items-center gap-1.5">
-        <label className="sr-only" htmlFor="demo-from">
-          From
-        </label>
-        <NativeSelect
-          id="demo-from"
-          className="min-w-0 flex-1 [&_select]:h-9 [&_select]:bg-card"
-          value={origin}
-          onChange={(e) => {
-            if (e.target.value === destination) setDestination(origin);
-            setOrigin(e.target.value);
-          }}
-        >
-          {stations.map((s) => (
-            <NativeSelectOption key={s.id} value={s.id}>
-              {s.name}
-            </NativeSelectOption>
-          ))}
-        </NativeSelect>
+    <div className="mx-auto w-full max-w-[740px]">
+      <div className="mb-4 flex flex-col items-stretch gap-2 sm:flex-row sm:items-end sm:gap-4">
+        {select("demo-from", "From", origin, (v) => {
+          if (v === destination) setDestination(origin);
+          setOrigin(v);
+        })}
         <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full"
+          variant="outline"
+          size="icon-lg"
+          className="size-11 self-center rounded-md bg-card sm:self-auto"
           aria-label="Swap direction"
           onClick={() => {
             setOrigin(destination);
             setDestination(origin);
           }}
         >
-          <ArrowLeftRight />
+          <ArrowUpDown className="sm:hidden" />
+          <ArrowLeftRight className="max-sm:hidden" />
         </Button>
-        <label className="sr-only" htmlFor="demo-to">
-          To
-        </label>
-        <NativeSelect
-          id="demo-to"
-          className="min-w-0 flex-1 [&_select]:h-9 [&_select]:bg-card"
-          value={destination}
-          onChange={(e) => {
-            if (e.target.value === origin) setOrigin(destination);
-            setDestination(e.target.value);
-          }}
-        >
-          {stations.map((s) => (
-            <NativeSelectOption key={s.id} value={s.id}>
-              {s.name}
-            </NativeSelectOption>
-          ))}
-        </NativeSelect>
+        {select("demo-to", "To", destination, (v) => {
+          if (v === origin) setOrigin(destination);
+          setDestination(v);
+        })}
       </div>
       <div
         className={cn(
           "overflow-hidden bg-card",
           mode === "fullscreen"
             ? "fixed inset-0 z-50"
-            : "rounded-2xl border shadow-sm ring-1 ring-black/[0.02]",
+            : "rounded-2xl border",
         )}
       >
         {html ? (
@@ -216,7 +209,7 @@ export function LiveDemo({ stations }: { stations: StationRef[] }) {
             style={{ height: mode === "fullscreen" ? "100%" : height }}
           />
         ) : (
-          <div className="grid h-[420px] place-items-center text-sm text-muted-foreground">
+          <div className="grid h-[370px] place-items-center text-sm text-muted-foreground">
             {failed ? "Couldn't load the demo." : "Loading the timetable…"}
           </div>
         )}

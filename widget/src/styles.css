@@ -1,0 +1,138 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "../../styles/tailwind-theme.css";
+
+@source "../../components/ui";
+@source "./";
+
+/*
+ * Tokens follow the host (MCP Apps style variables, e.g. ChatGPT's palette),
+ * with light/dark fallbacks for hosts that send none. `color-scheme` comes
+ * from the host theme via applyDocumentTheme().
+ */
+:root {
+  color-scheme: light dark;
+  --background: var(--color-background-primary, light-dark(#ffffff, #212121));
+  --foreground: var(--color-text-primary, light-dark(#0d0d0d, #f3f3f3));
+  --card: var(--background);
+  --card-foreground: var(--foreground);
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
+  --primary: var(--foreground);
+  --primary-foreground: var(--background);
+  --secondary: var(--color-background-secondary, light-dark(#f4f4f4, #2c2c2c));
+  --secondary-foreground: var(--foreground);
+  --muted: var(--secondary);
+  --muted-foreground: var(--color-text-secondary, light-dark(#5d5d5d, #b4b4b4));
+  --subtle-foreground: var(--color-text-tertiary, light-dark(#8f8f8f, #8a8a8a));
+  --accent: var(--color-background-tertiary, light-dark(#ececec, #363636));
+  --accent-foreground: var(--foreground);
+  --border: var(--color-border-primary, light-dark(#e3e3e3, #3d3d3d));
+  --border-subtle: var(--color-border-secondary, light-dark(#ededed, #333333));
+  --input: var(--border);
+  --ring: var(--color-ring-primary, light-dark(#0d0d0d, #f3f3f3));
+  --radius: 0.75rem;
+
+  --safe-top: 0px;
+  --safe-right: 0px;
+  --safe-bottom: 0px;
+  --safe-left: 0px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html,
+  body {
+    @apply m-0 bg-background p-0 text-sm text-foreground antialiased;
+    -webkit-text-size-adjust: 100%;
+  }
+  :root[data-mode="fullscreen"],
+  :root[data-mode="fullscreen"] body {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  /*
+   * Train rows. Card layout: departure on the left, arrival on the right, the
+   * trip line stretched between; service/train and the countdown underneath.
+   */
+  .train-grid {
+    display: grid;
+    grid-template-columns: max-content minmax(20px, 1fr) max-content 16px;
+    grid-template-areas:
+      "dep line arr chev"
+      "info info when chev";
+    align-items: center;
+    column-gap: 10px;
+    row-gap: 3px;
+  }
+  .train-grid .t-dep { grid-area: dep; }
+  .train-grid .t-line { grid-area: line; }
+  .train-grid .t-arr { grid-area: arr; justify-self: end; text-align: right; }
+  .train-grid .t-dur { grid-area: dur; }
+  .train-grid .t-info { grid-area: info; }
+  .train-grid .t-when { grid-area: when; justify-self: end; }
+  .train-grid .t-chev { grid-area: chev; }
+  /* Room for "12:58 PM", so the trip lines line up from row to row. */
+  .train-grid .t-dep,
+  .train-grid .t-arr { min-width: 70px; }
+
+  /* Full-day table on wider frames: one line per train under column headings. */
+  @media (min-width: 640px) {
+    .train-grid.is-table {
+      grid-template-columns: 84px 84px 80px minmax(140px, 1fr) 96px 16px;
+      grid-template-areas: "dep arr dur info when chev";
+      column-gap: 12px;
+    }
+    .train-grid.is-table .t-arr { justify-self: start; text-align: left; }
+  }
+
+  @media (max-width: 380px) {
+    .train-grid { column-gap: 6px; }
+    .train-grid .t-dep,
+    .train-grid .t-arr { min-width: 64px; }
+  }
+
+  /* Stop list: the rail and the dots share one centre line, --rail-x from the left. */
+  .stop-list li {
+    --dot: 12px;
+    --rail-x: 7px;
+    position: relative;
+  }
+  .stop-list li::before,
+  .stop-list li::after {
+    content: "";
+    position: absolute;
+    box-sizing: border-box;
+  }
+  /* The rail stops short of each dot, so hollow dots show the row colour. */
+  .stop-list li::before {
+    --seg: calc(50% - var(--dot) / 2);
+    left: calc(var(--rail-x) - 1px);
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background:
+      linear-gradient(var(--border), var(--border)) top / 100% var(--seg) no-repeat,
+      linear-gradient(var(--border), var(--border)) bottom / 100% var(--seg) no-repeat;
+  }
+  .stop-list li:first-child::before { background-size: 100% 0, 100% var(--seg); }
+  .stop-list li:last-child::before { background-size: 100% var(--seg), 100% 0; }
+  .stop-list li::after {
+    left: calc(var(--rail-x) - var(--dot) / 2);
+    top: calc(50% - var(--dot) / 2);
+    width: var(--dot);
+    height: var(--dot);
+    border-radius: 50%;
+    border: 2px solid var(--subtle-foreground);
+  }
+  .stop-list li[data-end]::after {
+    border-color: var(--brand);
+    background: var(--brand);
+  }
+}

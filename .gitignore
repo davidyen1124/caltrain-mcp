@@ -1,49 +1,28 @@
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-dist/
-build/
+# Dependencies
+node_modules/
 
-# Virtual environments
-.venv/
-.env/
-__pypackages__/
+# Next.js / Vercel
+.next/
+out/
+.vercel/
+next-env.d.ts
+*.tsbuildinfo
 
-# Coverage reports
-.coverage
-coverage.xml
-htmlcov/
-.tox/
-.coverage.*
+# Generated at build time (npm run generate)
+lib/generated/
+widget/dist/
 
-# Testing
-.pytest_cache/
-.cache
+# GTFS downloads
+data/**/*.zip
 
-# Python version files
-.python-version
-
-# IDE files
+# Env and local files
+.env*
 .DS_Store
 .idea/
 .vscode/
-
-# Ignore everything under data/ …
-data/*
-
-# …but *unignore* the live Caltrain feed we want version-controlled
-!data/caltrain-ca-us/
-!data/caltrain-ca-us/**
-
-# Optional: ignore zipped snapshots or temp files
-data/**/*.zip
+*.log
 *.tmp
 
-# Logs
-*.log
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
+# Python leftovers from the 0.x package
+__pycache__/
+.coverage

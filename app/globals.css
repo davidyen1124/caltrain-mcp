@@ -3,59 +3,70 @@
 @import "shadcn/tailwind.css";
 @import "../styles/tailwind-theme.css";
 
-@source not "../web";
-@source not "../src";
-
 @theme inline {
+  --font-display: var(--font-anton);
+  --font-mono: var(--font-plex-mono);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--ink);
+  --color-rule: var(--rule);
 }
 
+/*
+ * "Waiting room zine": paper, ink, heavy rules and Caltrain red.
+ * The shadcn tokens (card, secondary, border...) are what the live demo hands
+ * to the timetable view as its host palette, so they stay neutral.
+ */
 :root {
   color-scheme: light;
-  --background: oklch(0.99 0 0);
-  --foreground: oklch(0.16 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.16 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.16 0 0);
-  --primary: oklch(0.2 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.965 0 0);
-  --secondary-foreground: oklch(0.2 0 0);
-  --muted: oklch(0.965 0 0);
-  --muted-foreground: oklch(0.5 0 0);
-  --subtle-foreground: oklch(0.62 0 0);
-  --accent: oklch(0.95 0 0);
-  --accent-foreground: oklch(0.2 0 0);
-  --border: oklch(0.91 0 0);
-  --border-subtle: oklch(0.94 0 0);
-  --input: oklch(0.91 0 0);
-  --ring: oklch(0.7 0 0);
+  --background: #f1f0e8; /* paper */
+  --foreground: #171717; /* ink */
+  --ink: #171717;
+  --rule: #8c8a82; /* fine rules */
+  --card: #ffffff;
+  --card-foreground: #171717;
+  --popover: #ffffff;
+  --popover-foreground: #171717;
+  --primary: #171717;
+  --primary-foreground: #f1f0e8;
+  --secondary: #f3f2ed;
+  --secondary-foreground: #171717;
+  --muted: #e8e7df;
+  --muted-foreground: #68675f;
+  --subtle-foreground: #8c8a82;
+  --accent: #ecebe4;
+  --accent-foreground: #171717;
+  --border: #d9d7ce;
+  --border-subtle: #e6e4dc;
+  --input: #cfcdc3;
+  --ring: #171717;
   --radius: 0.75rem;
+  --brand-text: #d6163a;
 }
 
 .dark {
   color-scheme: dark;
-  --background: oklch(0.155 0 0);
-  --foreground: oklch(0.97 0 0);
-  --card: oklch(0.2 0 0);
-  --card-foreground: oklch(0.97 0 0);
-  --popover: oklch(0.2 0 0);
-  --popover-foreground: oklch(0.97 0 0);
-  --primary: oklch(0.93 0 0);
-  --primary-foreground: oklch(0.2 0 0);
-  --secondary: oklch(0.25 0 0);
-  --secondary-foreground: oklch(0.97 0 0);
-  --muted: oklch(0.25 0 0);
-  --muted-foreground: oklch(0.72 0 0);
-  --subtle-foreground: oklch(0.6 0 0);
-  --accent: oklch(0.28 0 0);
-  --accent-foreground: oklch(0.97 0 0);
-  --border: oklch(1 0 0 / 11%);
-  --border-subtle: oklch(1 0 0 / 7%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.55 0 0);
+  --background: #111111;
+  --foreground: #eeece2;
+  --ink: #eeece2;
+  --rule: #69675f;
+  --card: #1c1c1a;
+  --card-foreground: #eeece2;
+  --popover: #1c1c1a;
+  --popover-foreground: #eeece2;
+  --primary: #eeece2;
+  --primary-foreground: #111111;
+  --secondary: #262624;
+  --secondary-foreground: #eeece2;
+  --muted: #1c1c1a;
+  --muted-foreground: #adaaa0;
+  --subtle-foreground: #7e7b72;
+  --accent: #2c2c29;
+  --accent-foreground: #eeece2;
+  --border: #34332f;
+  --border-subtle: #2a2927;
+  --input: #3a3935;
+  --ring: #eeece2;
+  --brand-text: #ff6b80;
 }
 
 @layer base {
@@ -63,6 +74,36 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply relative z-0 bg-background text-foreground antialiased;
+  }
+  /* A little paper grain behind the content (cards and the demo stay clean). */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .dark body::after {
+    opacity: 0.04;
+  }
+}
+
+@layer components {
+  /* Heavy print rule between sections. */
+  .rule-heavy {
+    border-top: 6px solid var(--ink);
+  }
+  @media (max-width: 639px) {
+    .rule-heavy {
+      border-top-width: 5px;
+    }
+  }
+  /* Oversized outlined numerals (01, 02, 03). */
+  .numeral-outline {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--ink);
   }
 }

@@ -1,19 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Anton, Geist, IBM_Plex_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 import { SITE_URL } from "@/lib/mcp/constants";
 import "./globals.css";
 
+// "Waiting room zine": condensed display, typewriter body, one grotesk for UI.
+const display = Anton({ subsets: ["latin"], weight: "400", variable: "--font-anton" });
+const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-plex-mono" });
 const sans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
-const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 const description =
-  "Caltrain timetables for ChatGPT, Claude and any MCP client: a free remote MCP server " +
+  "Caltrain timetables in ChatGPT, Claude and other AI assistants: a free remote MCP server " +
   "with an interactive timetable view.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Caltrain MCP",
+  title: "Caltrain MCP: know when to start waiting",
   description,
   openGraph: { title: "Caltrain MCP", description, url: SITE_URL, siteName: "Caltrain MCP" },
   twitter: { card: "summary", title: "Caltrain MCP", description },
@@ -21,8 +23,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fcfcfc" },
-    { media: "(prefers-color-scheme: dark)", color: "#121212" },
+    { media: "(prefers-color-scheme: light)", color: "#f1f0e8" },
+    { media: "(prefers-color-scheme: dark)", color: "#111111" },
   ],
 };
 
@@ -36,11 +38,15 @@ const THEME_SCRIPT = `(() => {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${sans.variable} ${mono.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${display.variable} ${mono.variable} ${sans.variable}`}
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>
-      <body className="min-h-dvh font-sans">{children}</body>
+      <body className="min-h-dvh font-mono">{children}</body>
     </html>
   );
 }

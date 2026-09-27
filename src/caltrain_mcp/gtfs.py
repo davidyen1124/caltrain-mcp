@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
 from functools import lru_cache
 from pathlib import Path
@@ -22,6 +22,9 @@ class GTFSData:
     calendar: pd.DataFrame
     calendar_dates: pd.DataFrame
     station_to_platform_stops: dict[str, list[str]]
+    routes: pd.DataFrame | None = None
+    # Lazily built lookup tables used by :mod:`caltrain_mcp.schedule`.
+    schedule_index: Any = field(default=None, repr=False, compare=False)
 
 
 def get_gtfs_folder() -> Path:
@@ -50,6 +53,8 @@ def load_gtfs_data() -> GTFSData:
     trips_df = pd.read_csv(gtfs_folder / "trips.txt")
     stop_times_df = pd.read_csv(gtfs_folder / "stop_times.txt")
     calendar_df = pd.read_csv(gtfs_folder / "calendar.txt")
+    routes_path = gtfs_folder / "routes.txt"
+    routes_df = pd.read_csv(routes_path) if routes_path.exists() else None
     calendar_dates_path = gtfs_folder / "calendar_dates.txt"
     if calendar_dates_path.exists():
         calendar_dates_df = pd.read_csv(calendar_dates_path)
@@ -99,6 +104,7 @@ def load_gtfs_data() -> GTFSData:
         calendar=calendar_df,
         calendar_dates=calendar_dates_df,
         station_to_platform_stops=station_to_platform,
+        routes=routes_df,
     )
 
 

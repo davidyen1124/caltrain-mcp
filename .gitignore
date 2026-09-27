@@ -43,7 +43,11 @@ data/**/*.zip
 # Logs
 *.log
 
+# Node (timetable UI build tooling in web/)
+node_modules/
+
 # mypy
 .mypy_cache/
 .dmypy.json
 dmypy.json
+.vercel

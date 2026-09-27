@@ -14,6 +14,9 @@ A Model Context Protocol (MCP) server that promises to tell you _exactly_ when t
 - 🕐 **Time-specific queries** - Plan your commute with surgical precision, then watch it all fall apart
 - ✨ **Smart search** - Type 'sf' instead of the full name because we're all lazy here
 - 📊 **GTFS-based** - We use the same data Caltrain does, so when things go wrong, we can blame them together
+- 🖼️ **Interactive timetable UI** - An [MCP App](https://modelcontextprotocol.io/docs/extensions/apps) that shows the trains that matter to you right in ChatGPT (or any MCP Apps host), expands to the whole day, and goes fullscreen while you keep chatting
+- ☁️ **Hosted for you** - A remote Streamable HTTP server on Vercel, so you don't even have to install anything to be disappointed
+- 🌙 **Late-night aware** - Knows the 12:05 AM train belongs to _yesterday's_ schedule, and that Thanksgiving runs a weekend timetable
 
 ## Setup (The Fun Part 🙄)
 
@@ -42,6 +45,22 @@ A Model Context Protocol (MCP) server that promises to tell you _exactly_ when t
    - `calendar.txt` - Weekday vs weekend schedules (because trains also need work-life balance)
 
 ## Usage (Good Luck!)
+
+### In ChatGPT (The Shiny Way ✨)
+
+There's a hosted server at **`https://caltrain-mcp-rho.vercel.app/mcp`**. No auth, no install, no excuses.
+
+1. In ChatGPT (web, Plus/Pro/Business/Enterprise/Edu) go to **Plugins → Add → Create MCP App**
+2. Name it `Caltrain`, paste the URL above, set **Authentication** to **No authentication**, tick the scary checkbox, and hit **Create**, then **Connect**
+3. Ask away: _"When's the next train from Palo Alto to SF?"_, _"I need to be in SF by 9am Monday"_, _"Last train to San Jose tonight?"_
+
+ChatGPT shows a timetable card with the few trains that answer your question. From there you can:
+
+- Tap a train to see every stop it makes (and at what time it'll pretend to arrive)
+- Hit **Show more** to reveal later trains
+- Hit **Full day timetable** to go fullscreen: switch stations, swap direction, flip through days, and filter to Express / Limited / Local, all while chatting ("which of these gets me in before 9?"). The model knows what you're looking at.
+
+After redeploying the server, open the app under **Settings → Plugins → Caltrain → Refresh tools** so ChatGPT picks up the changes.
 
 ### As an MCP Server (The Real Deal)
 
@@ -76,6 +95,25 @@ uvx caltrain-mcp
 
 The server communicates via stdin/stdout using the MCP protocol. It doesn't do anything exciting when run directly - it just sits there waiting for proper MCP messages.
 
+#### Over HTTP (For Remote Clients)
+
+```bash
+uvx caltrain-mcp --http --port 8000
+# MCP endpoint: http://127.0.0.1:8000/mcp
+```
+
+It speaks stateless Streamable HTTP with JSON responses, which is exactly what serverless platforms like. When bound to localhost, DNS-rebinding protection is on.
+
+#### Deploying to Vercel
+
+The repo root has an `app.py` that exposes the ASGI app, so Vercel's Python runtime picks it up with zero config (it installs from `pyproject.toml` + `uv.lock`):
+
+```bash
+npx vercel@latest deploy --prod
+```
+
+The MCP endpoint is `/mcp`; `/` is a tiny landing page and `/health` reports whether the GTFS data loaded.
+
 ### Testing the Server (For Development)
 
 You can test if this thing actually works by importing it directly:
@@ -85,7 +123,8 @@ from caltrain_mcp.server import next_trains, list_stations
 
 # Test next trains functionality (prepare for disappointment)
 result = await next_trains('San Jose Diridon', 'San Francisco')
-print(result)  # Spoiler: there are no trains
+print(result.content[0].text)  # Spoiler: there are no trains
+print(result.structured_content["trains"])  # Same disappointment, now as JSON
 
 # Test stations list (all 31 of them, because apparently that's manageable)
 stations = await list_stations()
@@ -94,15 +133,21 @@ print(stations)
 
 ## Available Tools (Your New Best Friends)
 
-### `next_trains(origin, destination, when_iso=None)`
+### `next_trains(origin, destination, when_iso=None, arrive_by_iso=None, limit=3)`
 
-Ask politely when the next train will show up. The server will consult its crystal ball (GTFS data) and give you times that are _technically_ accurate.
+Ask politely when the next train will show up. The server will consult its crystal ball (GTFS data) and give you times that are _technically_ accurate. In hosts that support MCP Apps it also renders the interactive timetable.
 
 **Parameters:**
 
 - `origin` (str): Where you are now (probably regretting your life choices)
 - `destination` (str): Where you want to be (probably anywhere but here)
-- `when_iso` (str, optional): When you want to travel (as if time has any meaning in public transit)
+- `when_iso` (str, optional): Leave at or after this Pacific time (as if time has any meaning in public transit)
+- `arrive_by_iso` (str, optional): Instead, find the latest trains that get you there by this Pacific time (for people with meetings)
+- `limit` (int, optional): How many trains to suggest, 1-10 (default 3)
+
+Times are always Pacific. Timezone-aware inputs like `2026-09-28T16:00:00Z` are converted, so 4pm UTC really means 9am in Palo Alto. If nothing is left tonight, you get tomorrow's first trains instead of a shrug. If there's no direct train (hello, Gilroy → SF), it tells you where to change.
+
+**Returns:** a short text answer, `structuredContent` with the suggested trains for the model, and the full day's timetable (with every stop) in `_meta` for the UI.
 
 **Examples:**
 
@@ -123,6 +168,10 @@ Get a list of all 31 Caltrain stations, because memorizing them is apparently to
 
 **Returns:**
 A formatted list that will make you realize just how many places this train supposedly goes.
+
+### `get_timetable(origin, destination, date=None)` (UI only)
+
+The full day's timetable between two stations. It's marked app-only (`_meta.ui.visibility: ["app"]`), so the model doesn't see it; the timetable UI calls it when you switch stations or days.
 
 ## Station Name Recognition (We're Not Mind Readers, But We Try)
 
@@ -148,12 +197,11 @@ The server covers every single Caltrain station because we're completionists:
 ## Sample Output (Prepare to Be Amazed)
 
 ```
-🚆 Next Caltrain departures from San Jose Diridon Station to San Francisco Caltrain Station on Thursday, May 22, 2025:
-• Train 153: 17:58:00 → 19:16:00 (to San Francisco)
-• Train 527: 18:22:00 → 19:22:00 (to San Francisco)
-• Train 155: 18:28:00 → 19:46:00 (to San Francisco)
-• Train 429: 18:43:00 → 19:53:00 (to San Francisco)
-• Train 157: 18:58:00 → 20:16:00 (to San Francisco)
+Next Caltrain departures from San Francisco to Mountain View after 5:00 PM (Monday, September 28, 2026, Weekday schedule):
+• Train 522 (Express): 5:20 PM → 6:06 PM, 46 min, 7 stops in between
+• Train 150 (Local): 5:25 PM → 6:24 PM, 59 min, 16 stops in between
+• Train 424 (Limited): 5:48 PM → 6:39 PM, 51 min, 10 stops in between
+52 trains run this route that day (first 4:55 AM, last 12:05 AM).
 ```
 
 _Actual arrival times may vary. Side effects may include existential dread and a deep appreciation for remote work._
@@ -161,7 +209,9 @@ _Actual arrival times may vary. Side effects may include existential dread and a
 ## Technical Details (For the Nerds)
 
 - **GTFS Processing**: We automatically handle the relationship between stations and their platforms (because apparently trains are complicated)
-- **Service Calendar**: Respects weekday/weekend schedules (trains also need their beauty rest)
+- **Service Calendar**: Respects weekday/weekend schedules and holiday exceptions (trains also need their beauty rest)
+- **Pacific Time, Always**: Server clocks live in UTC; Caltrain does not. We convert.
+- **After Midnight**: GTFS times like `24:35:00` belong to the previous service day, and we treat them that way
 - **Data Types**: Handles the chaos that is mixed integer/string formats in GTFS files
 - **Time Parsing**: Supports 24+ hour format for those mythical late-night services
 - **Error Handling**: Gracefully fails when you type "Narnia" as a station name
@@ -173,12 +223,17 @@ caltrain-mcp/
 ├── .github/workflows/         # GitHub Actions (the CI/CD overlords)
 │   ├── ci.yml                 # Main CI pipeline (linting, testing, the works)
 │   └── update-gtfs.yml        # Automated GTFS data updates
+├── app.py                     # Vercel entrypoint (re-exports the ASGI app)
 ├── src/caltrain_mcp/          # Main package (because modern Python demands structure)
 │   ├── data/caltrain-ca-us/   # GTFS data storage (where CSV files go to retire)
+│   ├── ui/timetable.html      # Built timetable UI (generated from web/, committed)
 │   ├── __init__.py            # Package initialization (the ceremony of Python)
 │   ├── __main__.py            # Entry point for python -m caltrain_mcp
-│   ├── server.py              # MCP server implementation (where the magic happens)
+│   ├── server.py              # MCP tools + the MCP Apps UI resource
+│   ├── http_app.py            # Streamable HTTP app for remote hosting
+│   ├── schedule.py            # Timetable queries (time zones, midnight, arrive-by)
 │   └── gtfs.py                # GTFS data processing (aka "CSV wrestling")
+├── web/                       # Timetable UI sources (TypeScript + Vite + ext-apps SDK)
 ├── scripts/                   # Utility scripts (the supporting cast)
 │   ├── __init__.py            # Makes scripts a proper Python package
 │   ├── fetch_gtfs.py          # Downloads the latest disappointment data
@@ -186,7 +241,9 @@ caltrain-mcp/
 ├── tests/                     # Test suite (because trust but verify)
 │   ├── conftest.py            # Shared test fixtures (the common ground)
 │   ├── test_gtfs.py           # GTFS functionality tests (8 tests of data wrangling)
-│   ├── test_server.py         # Server functionality tests (4 tests of MCP protocol)
+│   ├── test_schedule.py       # Timetable engine tests (midnight, holidays, transfers)
+│   ├── test_server.py         # MCP tool tests
+│   ├── test_http.py           # Streamable HTTP end-to-end tests
 │   └── test_fetch_gtfs.py     # Data fetching tests (7 tests of download chaos)
 ├── .pre-commit-config.yaml    # Pre-commit hooks configuration
 ├── pyproject.toml             # Modern Python config (because setup.py is so 2020)
@@ -194,6 +251,24 @@ caltrain-mcp/
 ```
 
 ## Development & Testing (For When Things Inevitably Break)
+
+### The Timetable UI
+
+The UI lives in `web/` and is built into a single self-contained HTML file with the
+[`@modelcontextprotocol/ext-apps`](https://github.com/modelcontextprotocol/ext-apps) SDK:
+
+```bash
+cd web
+npm ci
+npm run build   # writes src/caltrain_mcp/ui/timetable.html
+```
+
+The built file is committed, so neither PyPI installs nor Vercel need Node; CI fails if it's out of date.
+Hosts (ChatGPT especially) cache UI resources by URI, so bump `TIMETABLE_URI` in `server.py`
+(`ui://caltrain/timetable-vN.html`) when you ship UI changes.
+
+To try it without ChatGPT, run `uv run caltrain-mcp --http` and point the ext-apps
+[basic-host example](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/basic-host) at `http://localhost:8000/mcp`.
 
 ### Code Quality & CI/CD
 
@@ -275,10 +350,11 @@ This server implements the Model Context Protocol (MCP), which means it's design
 - **Real-time Integration**: Your AI can check schedules, suggest routes, and help plan trips
 - **Natural Language**: No need to remember station names or command syntax
 
-The server exposes two main tools:
+The server exposes these tools:
 
-- `next_trains` - Get upcoming departures between stations
+- `next_trains` - Get upcoming departures between stations (with the timetable UI)
 - `list_stations` - Browse all available Caltrain stations
+- `get_timetable` - Full-day timetable, used by the UI only
 
 So your AI assistant can now disappoint you about train schedules just like a real human would! The future is truly here.
 

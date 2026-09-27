@@ -1,0 +1,20 @@
+{
+  "name": "caltrain-mcp-ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Timetable UI (MCP App) for the Caltrain MCP server",
+  "scripts": {
+    "build": "tsc --noEmit && vite build",
+    "watch": "vite build --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": "2.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^6.3.0",
+    "vite-plugin-singlefile": "^2.3.0"
+  }
+}

@@ -8,6 +8,14 @@ A remote [Model Context Protocol](https://modelcontextprotocol.io) server that t
 
 In ChatGPT (and any other host that supports [MCP Apps](https://modelcontextprotocol.io/docs/extensions/apps)), answers come with an interactive timetable instead of a wall of text. Everywhere else you get the same answer as plain text.
 
+<p align="center">
+  <img src="assets/chatgpt-inline.png" alt="ChatGPT answering 'next train from Palo Alto to San Francisco tomorrow after 8am' with the Caltrain timetable card: three trains with departure and arrival times, service badges and durations" width="720">
+</p>
+
+Open **Full day timetable** and the whole day sits next to the chat, with station and date pickers and Express / Limited / Local filters:
+
+![The full-day Caltrain timetable open in ChatGPT's side panel, with the suggested trains highlighted](assets/chatgpt-full-day.jpg)
+
 ## Features (Or: "Why We Built This Thing")
 
 - 🚆 **Next trains** between any two stations, from now or from any time you like
